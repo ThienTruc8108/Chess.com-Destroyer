@@ -1,0 +1,61 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "Chess.com Destroyer",
+  "version": "1.2.1",
+  "description": "Destroy Chess.com positions with Stockfish",
+  "icons": {
+    "16": "images/image.png",
+    "32": "images/image.png",
+    "48": "images/image.png",
+    "128": "images/image.png"
+  },
+  "permissions": [
+    "storage",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://www.chess.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/image.png",
+      "32": "images/image.png",
+      "48": "images/image.png",
+      "128": "images/image.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.chess.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "stockfish.js",
+        "offscreen.html",
+        "stockfish.wasm",
+        "stockfish.loader.js",
+        "stockfish.asm.js"
+      ],
+      "matches": [
+        "https://www.chess.com/*"
+      ]
+    }
+  ]
+}
